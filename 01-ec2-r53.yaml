@@ -6,19 +6,21 @@
     sg_id: "sg-063f4a8b92c8783d5"
     zone_id: "Z10433352FG8G3570MODR"
     domain_name: "daws86s.art"
+    instances:
+    - mongodb
   tasks:
   - name: create ec2 instance
     amazon.aws.ec2_instace:
-    name: " {{ item }}"
-    instance_type: t3.micro
-    security_group: "{{ sg_id }}"
-    image_id: " {{ ami_id }}"
-    tags:
-      Name: "{{ item }}"
-  loop: "{{ instances }}"
-  register: ec2_output
+      name: " {{ item }}"
+      instance_type: t3.micro
+      security_group: "{{ sg_id }}"
+      image_id: " {{ ami_id }}"
+      tags:
+        Name: "{{ item }}"
+    loop: "{{ instances }}"
+    register: ec2_output
 
 
-- name: print the ec2 output
-  ansible.builtin.debug:
-    msg: "{{ ec2_output }}"
+  - name: print the ec2 output
+    ansible.builtin.debug:
+      msg: "{{ ec2_output }}"
