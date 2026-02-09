@@ -1,5 +1,5 @@
 - name: Create ec2 instance and r53
-  hosts: localhost
+  hosts: local
   connection: local
   gather_facts: false
 
