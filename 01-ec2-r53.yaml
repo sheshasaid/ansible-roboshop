@@ -1,26 +1,30 @@
 - name: Create ec2 instance and r53
-  hosts: local
+  hosts: localhost
   connection: local
+  gather_facts: false
+
   vars:
     ami_id: "ami-0220d79f3f480ecf5"
     sg_id: "sg-063f4a8b92c8783d5"
-    zone_id: "Z10433352FG8G3570MODR"
-    domain_name: "daws86s.art"
+    region: us-east-1
     instances:
-    - mongodb
+      - mongodb
+
   tasks:
-  - name: create ec2 instance
-    amazon.aws.ec2_instance:
-    name: "{{ item }}"
-    instance_type: t3.micro
-    security_group: "{{ sg_id }}"
-    image_id: "{{ ami_id }}"
-    tags:
-      Name: "{{ item }}"
-    loop: "{{ instances }}"
-    register: ec2_output
+    - name: Create EC2 instance
+      amazon.aws.ec2_instance:
+        name: "{{ item }}"
+        instance_type: t3.micro
+        image_id: "{{ ami_id }}"
+        region: "{{ region }}"
+        key_name: my-keypair
+        security_group_ids:
+          - "{{ sg_id }}"
+        tags:
+          Name: "{{ item }}"
+      loop: "{{ instances }}"
+      register: ec2_output
 
-
-  - name: print the ec2 output
-    ansible.builtin.debug:
-      msg: "{{ ec2_output }}"
+    - name: Print EC2 output
+      ansible.builtin.debug:
+        var: ec2_output
