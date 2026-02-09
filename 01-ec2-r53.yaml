@@ -5,7 +5,7 @@
 
   vars:
     ami_id: "ami-0220d79f3f480ecf5"
-    sg_id: "sg-063f4a8b92c8783d5"
+    sg_id: "sg-07b0ccbd6b371acca"
     region: us-east-1
     instances:
       - mongodb
