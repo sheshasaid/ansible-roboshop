@@ -20,11 +20,11 @@
 
   - name: create and provide permissions to the user
     community.rabbitmq.rabbitmq_user:
-    user: roboShop
-    password: roboshop123
-    permissions:
-      - vhost: /
-        configure_priv: .*
-        read_priv: .*
-        write_priv: .*
-    state: present 
+      user: roboShop
+      password: roboshop123
+      permissions:
+        - vhost: /
+          configure_priv: .*
+          read_priv: .*
+          write_priv: .*
+      state: present 
