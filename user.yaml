@@ -16,11 +16,11 @@
   - name: create roboshop system user
     ansible.builtin.user:
       name: roboshop
-      comment: RoboShop system user
+      comment: RoboShop System user
       system: true
       shell: /sbin/nologin
       home: /app
-
+  # Safe to remove directory, because 2nd time if we run it will download freshly. no error if does not exist
   - name: remove app directory
     ansible.builtin.file:
       path: /app
@@ -36,12 +36,12 @@
       path: /tmp/user.zip
       state: absent
 
-  - name: Download user application
+  - name: download user application
     ansible.builtin.get_url:
-      url: https://roboshop-artifacts.s3.amazonaws.com/user-v3.zip 
+      url: https://roboshop-artifacts.s3.amazonaws.com/user-v3.zip
       dest: /tmp/user.zip
 
-  - name: Extract user application
+  - name: extract user application
     ansible.builtin.unarchive:
       src: /tmp/user.zip
       dest: /app
@@ -55,10 +55,11 @@
     ansible.builtin.copy:
       src: user.service
       dest: /etc/systemd/system/user.service
-  
+
   - name: daemon reload enable and start
     ansible.builtin.systemd_service:
       name: user
       enabled: true
       state: started
       daemon_reload: true
+  
