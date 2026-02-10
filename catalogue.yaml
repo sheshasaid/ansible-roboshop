@@ -56,9 +56,14 @@
       name: mongodb-mongosh
       state: present
   
-  - name: connect to mongodb catalogue
-    ansible.builtin.command: mongosh mongodb.daws86s.art --quiet --eval "db.getMongo().getDBNames().includes('catalogue')"
+  # - name: connect to mongodb catalogue
+  #   ansible.builtin.command: mongosh mongodb.daws86s.art --quiet --eval "db.getMongo().getDBNames().includes('catalogue')"
+  #   register: catalogue_output
 
+  - name: evaluate catalogue database
+    community.mongodb.mongodb_shell:
+      login_host:
+      eval: db.getMongo().getDBName().indexOf('catalogue')
     register: catalogue_output
 
   - name: print catalogue output
