@@ -72,4 +72,11 @@
 
   - name: load products in to mongodb
     ansible.builtin.shell: mongosh --host mongodb.daws86s.art </app/db/master-data.js
-    when: catalogue_output.stdout < 0
+    when: catalogue_output.stdout | int < 0
+
+  - name: start and enable catalogue
+    ansible.builtin.service:
+      name: catalogue
+      enabled: yes
+      state: started
+      
