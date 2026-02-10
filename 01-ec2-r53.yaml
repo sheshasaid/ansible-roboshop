@@ -5,7 +5,7 @@
     ami_id: ami-0220d79f3f480ecf5
     sg_id: sg-07b0ccbd6b371acca 
     zone_id: "Z10433352FG8G3570MODR" 
-    domain_name: "daws86s.fun"
+    domain_name: "daws86s.art"
     instances: 
     - mongodb
   tasks:
